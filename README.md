@@ -31,7 +31,7 @@ Outline the file contents of the repository. It helps users navigate the codebas
 | `README.md`       | This README file.                          |
 | `LICENSE`         | The license for the sample.                |
 | `images`          | Images used in readme.md.                  |
-| `Function`        | The Azure function code.                  |
+| `Function`        | The Azure function code.                   |
 
 ## Prerequisites
 
