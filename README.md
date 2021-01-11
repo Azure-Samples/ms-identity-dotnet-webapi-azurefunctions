@@ -12,11 +12,11 @@ urlFragment: "ms-identity-dotnet-webapi-azurefunctions"
 
 # DotNet Azure Function Web API secured by Azure AD
 
-This code example demonstrates how to secure an Azure function with Azure AD when the function uses HTTPTrigger and exposes a Web API. The Web API is written using dotnet and c#, and the authentication is provided by msal.
+This code example demonstrates how to secure an Azure Function with Azure AD when the function uses HTTPTrigger and exposes a Web API. The Web API is written using dotnet and c#, and the authentication is provided by msal.
 
 This readme walks you through the steps of setting this code up in your Azure subscription.
 
-While you can develop Azure functions in many ways, such as Visual Studio 2019, Visual Studio Code, etc. this guide shows how to perform the steps using Visual Studio Code.
+While you can develop Azure Functions in many ways, such as Visual Studio 2019, Visual Studio Code, etc. this guide shows how to perform the steps using Visual Studio Code.
 
 ## Contents
 
@@ -31,20 +31,20 @@ Outline the file contents of the repository. It helps users navigate the codebas
 | `README.md`       | This README file.                          |
 | `LICENSE`         | The license for the sample.                |
 | `images`          | Images used in readme.md.                  |
-| `Function`        | The Azure function code.                   |
+| `Function`        | The Azure Function code.                   |
 
 ## Prerequisites
 
 1. You must have Visual Studio Code installed
 2. You must have Azure Functions core tools installed `npm install -g azure-functions-core-tools`
-3. Azure functions VSCode extension (https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
+3. Azure Functions VSCode extension (https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
 4. You must have dotnetcore installed on your local dev environment
 
 ## Register an AAD App
 
 Reference: [How to register an app](https://docs.microsoft.com/en-nz/azure/active-directory/develop/quickstart-register-app)
 
-The Azure function acts as a WebAPI. There are a few things to know here.
+The Azure Function acts as a WebAPI. There are a few things to know here.
 1. The function app will run on `http://localhost:7071` when you test it locally.
 2. The function app will run on `https://<yourdotnetfunction>.azurewebsites.net` when you run it deployed in azure
 3. The function exposes an API with app id uri `https://<yourdotnetfunction>.<tenant>.onmicrosoft.com`
