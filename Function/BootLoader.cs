@@ -1,20 +1,14 @@
 using System;
-using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-
-using System.Collections.Generic;
-using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 
 namespace Company.Function
@@ -24,7 +18,7 @@ namespace Company.Function
         [FunctionName("BootLoader")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post",
-            Route = "{requestedRoute}")] HttpRequest req,
+            Route = "{requestedRoute}")] HttpRequestMessage req,
             string requestedRoute,
             ILogger log)
         {
@@ -42,12 +36,12 @@ namespace Company.Function
             return (ActionResult)new OkObjectResult(requestedRoute);
         }
 
-        private static IActionResult Anonymous(HttpRequest req, ILogger log)
+        private static IActionResult Anonymous(HttpRequestMessage req, ILogger log)
         {
             return (ActionResult)new OkObjectResult("anonymous");
         }
 
-        private static async Task<IActionResult> Authenticated(HttpRequest req, ILogger log)
+        private static async Task<IActionResult> Authenticated(HttpRequestMessage req, ILogger log)
         {
             var accessToken = GetAccessToken(req);
             var claimsPrincipal = await ValidateAccessToken(accessToken, log);
@@ -61,12 +55,11 @@ namespace Company.Function
             }            
         }
 
-        private static string GetAccessToken(HttpRequest req)
+        private static string GetAccessToken(HttpRequestMessage req)
         {
-            var authorizationHeader = req.Headers?["Authorization"];
-            string[] parts = authorizationHeader?.ToString().Split(null) ?? new string[0];
-            if (parts.Length == 2 && parts[0].Equals("Bearer"))
-                return parts[1];
+            var scheme = req.Headers.Authorization?.Scheme;
+            if(scheme != null && scheme.Equals("Bearer"))
+                return req.Headers.Authorization.Parameter;
             return null;
         }
 
