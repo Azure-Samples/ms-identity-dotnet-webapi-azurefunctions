@@ -36,7 +36,8 @@ Outline the file contents of the repository. It helps users navigate the codebas
 ## Prerequisites
 
 1. You must have Visual Studio Code installed
-2. You must have Azure Functions core tools installed `npm install -g azure-functions-core-tools`
+2. You must have version 4 or higher of Azure Functions core tools installed
+   1. Instructions can be found [here](https://www.npmjs.com/package/azure-functions-core-tools)
 3. Azure Functions VSCode extension (https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
 4. You must have dotnetcore installed on your local dev environment
 
